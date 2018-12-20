@@ -51,11 +51,17 @@
 
 			return $name;
 		}
+		public static function ensure_vote($body,$vote=null)
+		{
+			Validator::array_or_var($body,$vote);
+			return $vote;
+		}
+		
+		
 		public static function ensure_email($body,$email=null)
 		{
 			Validator::array_or_var($body,$email);
-			return $email;
-	
+		
 			if(filter_var($email, FILTER_VALIDATE_EMAIL) === $email)
 				return $email;
 			throw new Exception(tr('INVALID_EMAIL'));

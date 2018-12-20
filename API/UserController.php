@@ -16,9 +16,6 @@
 			$email=Validator::ensure_email($body,'email');
 			$password=Validator::ensure_password($body,'password');
 			
-			
-			echo "email and pwd : ".$email." - ".$password;
-			
 			$user = $this->db->single(QUERY_USER_BY_EMAIL,
 				[
 					'email'=>$email,

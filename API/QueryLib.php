@@ -47,6 +47,6 @@
 	/**
 	 * Query used to update book using the ID. It assumes all the field are always provided. Merge before update is required.
 	 */
-	const QUERY_BOOK_UPDATE = 'update books set title=:title, author=:author, description=:description, user_id=:user_id where id = :id';
+	const QUERY_BOOK_UPDATE = 'update books set title=:title, author=:author, description=:description, vote=:vote, user_id=:user_id where id = :id';
 	
 ?>

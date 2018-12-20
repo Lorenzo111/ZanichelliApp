@@ -54,6 +54,7 @@ class BookController extends BaseController
 		$this->db->execute(QUERY_BOOK_UPDATE,[
 			'id' => $book['id'],
 			'title'=>$book['title'],
+			'vote'=>$book['vote'],
 			'author'=>$book['author'],
 			'user_id'=>$book['user_id'],
 			'description'=>$book['description'],
@@ -74,7 +75,9 @@ class BookController extends BaseController
 		$user_id = $this->get_user_id();
 		$body = $this->jsonBody();
 		$title = Validator::ensure_title($body,'title');
+		$vote = Validator::ensure_vote($body,'vote');
 		$author = Validator::ensure_author($body,'author');
+		
 		$description = Validator::ensure_description($body,'description');
 		$already_same_title = $this->db->single(QUERY_BOOK_BY_TITLE_AND_USERID,[
 			'title'=>$title,
@@ -85,6 +88,7 @@ class BookController extends BaseController
 		$last_id=$this->db->execute(QUERY_BOOK_INSERT,[
 			'title'=>$title,
 			'author'=>$author,
+			'vote'=>$vote,
 			'user_id'=>$user_id,
 			'description'=>$description
 		]);
