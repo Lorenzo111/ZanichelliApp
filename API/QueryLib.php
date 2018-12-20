@@ -39,7 +39,7 @@
 	/**
 	 * Insert a book for a given user.
 	 */
-	const QUERY_BOOK_INSERT = 'insert into books (title,author,description,user_id) values(:title,:author,:description,:user_id)';
+	const QUERY_BOOK_INSERT = 'insert into books (title,author,vote,description,user_id) values(:title,:author,:vote,:description,:user_id)';
 	/**
 	 * Search a book using the book id and the user id
 	 */

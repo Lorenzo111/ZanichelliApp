@@ -25,10 +25,10 @@
 				throw new Exception(tr('INVALID_TITLE'));
 			return $title;
 		}
-		public static function ensure_isbn($body,$isbn=null)
+		public static function ensure_author($body,$author=null)
 		{
-			Validator::array_or_var($body,$isbn);
-			return $isbn;
+			Validator::array_or_var($body,$author);
+			return $author;
 		}
 		public static function ensure_description($body,$description=null)
 		{

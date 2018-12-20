@@ -54,7 +54,7 @@ class BookController extends BaseController
 		$this->db->execute(QUERY_BOOK_UPDATE,[
 			'id' => $book['id'],
 			'title'=>$book['title'],
-			'isbn'=>$book['isbn'],
+			'author'=>$book['author'],
 			'user_id'=>$book['user_id'],
 			'description'=>$book['description'],
 		]);
@@ -74,7 +74,7 @@ class BookController extends BaseController
 		$user_id = $this->get_user_id();
 		$body = $this->jsonBody();
 		$title = Validator::ensure_title($body,'title');
-		$isbn = Validator::ensure_isbn($body,'isbn');
+		$author = Validator::ensure_author($body,'author');
 		$description = Validator::ensure_description($body,'description');
 		$already_same_title = $this->db->single(QUERY_BOOK_BY_TITLE_AND_USERID,[
 			'title'=>$title,
@@ -84,7 +84,7 @@ class BookController extends BaseController
 			throw new Exception(tr('A_BOOK_WITH_THE_SAME_TITLE_ALREADY_EXISTS'));
 		$last_id=$this->db->execute(QUERY_BOOK_INSERT,[
 			'title'=>$title,
-			'isbn'=>$isbn,
+			'author'=>$author,
 			'user_id'=>$user_id,
 			'description'=>$description
 		]);
