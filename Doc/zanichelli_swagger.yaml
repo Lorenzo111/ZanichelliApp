@@ -1,0 +1,351 @@
+swagger: '2.0'
+info:
+  description: This is a sample project for Zanichelli interview
+  version: 1.0.0.0
+  title: Zanichelli App
+  contact:
+    email: orlandil@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: www.ioappo.com
+basePath: /zanichelli
+tags:
+  - name: Api
+    description: Elementary system exploration API
+  - name: Account
+    description: Basic account management API
+  - name: Profile
+    description: Profile management
+  - name: Books
+    description: Book management
+schemes:
+  - http
+paths:
+  /:
+    get:
+      tags:
+        - Api
+      summary: Retrieve API versions
+      description: ''
+      operationId: apiVersion
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ApiVersionMessage'
+  /register:
+    post:
+      tags:
+        - Account
+      summary: Create a new account
+      description: Create a new account.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User information
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/AccountCreateMessage'
+  /login:
+    post:
+      tags:
+        - Account
+      summary: API Login
+      description: User authentication to backend
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: User information
+          required: true
+          schema:
+            $ref: '#/definitions/Credential'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/LoginMessage'
+  /logout:
+    post:
+      tags:
+        - Account
+      summary: API logout
+      description: logout
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/LoginMessage'
+  /user:
+    get:
+      tags:
+        - Profile
+      summary: Get User Profile
+      description: Retrieve user profile
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/LoginMessage'
+    delete:
+      tags:
+        - Profile
+      summary: Remove User Profile
+      description: Remove user profile
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/LoginMessage'
+    put:
+      tags:
+        - Profile
+      summary: Update User Profile
+      description: Update user profile
+      parameters:
+        - in: body
+          name: body
+          description: Updated User information
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/LoginMessage'
+  /books:
+    get:
+      tags:
+        - Books
+      summary: Get Book list
+      description: Retrieve books owned by user
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BookListMessage'
+    post:
+      tags:
+        - Books
+      summary: Create a new book
+      description: Add a new books for the user user
+      parameters:
+        - in: body
+          name: body
+          description: Book information
+          schema:
+            $ref: '#/definitions/Book'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BookMessage'
+  '/books/{bookId}':
+    put:
+      tags:
+        - Books
+      summary: Update a book
+      description: 'Change a book for the user '
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book
+          required: true
+          type: integer
+        - in: body
+          name: body
+          description: Updated book information
+          schema:
+            $ref: '#/definitions/Book'
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BookMessage'
+    delete:
+      tags:
+        - Books
+      summary: Delete a book
+      description: 'Delete a book for the user '
+      parameters:
+        - name: bookId
+          in: path
+          description: ID of the book
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BookMessage'
+definitions:
+  ApiVersionMessage:
+    type: object
+    properties:
+      result:
+        type: string
+        description: Operation status
+        enum:
+          - ok
+          - error
+      message:
+        type: string
+        description: Operation error message
+        example: ''
+      data:
+        $ref: '#/definitions/ApiVersion'
+  AccountCreateMessage:
+    type: object
+    properties:
+      result:
+        type: string
+        description: Operation status
+        enum:
+          - ok
+          - error
+      message:
+        type: string
+        description: Operation error message
+        example: ''
+  LoginMessage:
+    type: object
+    properties:
+      result:
+        type: string
+        description: Operation status
+        enum:
+          - ok
+          - error
+      message:
+        type: string
+        description: Operation error message
+        example: ''
+      data:
+        items:
+          $ref: '#/definitions/User'
+  ApiVersion:
+    type: object
+    properties:
+      application:
+        type: string
+        example: Zanichelli Test
+      version:
+        type: string
+        example: 1.0.0.0
+  Credential:
+    type: object
+    properties:
+      email:
+        type: string
+        description: User email
+      password:
+        type: string
+        description: User password
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: User id if known
+      email:
+        type: string
+        description: User email
+      password:
+        type: string
+        description: User password
+      name:
+        type: string
+        description: Name
+      surname:
+        type: string
+        description: Surname
+  Book:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: book id
+      title:
+        type: string
+        description: Book title
+      author:
+        type: string
+        description: Book author if available
+	  user_id:
+        type: integer
+        description: Vote of the book
+      user_id:
+        type: integer
+        description: Id of the user owning this book
+  BookListMessage:
+    type: object
+    properties:
+      result:
+        type: string
+        description: Operation status
+        enum:
+          - ok
+          - error
+      message:
+        type: string
+        description: Operation error message
+        example: ''
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Book'
+  BookMessage:
+    type: object
+    properties:
+      result:
+        type: string
+        description: Operation status
+        enum:
+          - ok
+          - error
+      message:
+        type: string
+        description: Operation error message
+        example: ''
+      data:
+        $ref: '#/definitions/Book'
