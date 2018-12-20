@@ -40,14 +40,6 @@ respond('/',function ($req, $res) {
 	]));
 });
 
-respond('/wlf',function ($req, $res) {
-    return $res->json(Utils::data([
-		'application'=>TITLE,
-		'version'=>VERSION,
-	]));
-});
-
-
 /*
  * Middleware Registration
  */
