@@ -67,11 +67,11 @@ respond('@/user*',function($req,$res)
 /*
  * Api request on /book endpoint requires authentication
  */
- /*
+ 
 respond('@/books*',function($req,$res)
 {
 	BaseController::ensure_logged();
-});*
+});
 
 /*
  * Login / Logout / Registration routes
